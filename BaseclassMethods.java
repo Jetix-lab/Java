@@ -36,13 +36,14 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseclassMethods {
-	WebDriver driver;
+	 static WebDriver driver;
 	JavascriptExecutor js;
 	Select select;
 	File file;
 	FileInputStream inpstream;
 	FileOutputStream outstream;
 	Workbook workbook;
+	Actions action;
 
 //1-launch browser
 	public void browserLaunch() {
@@ -409,7 +410,7 @@ public class BaseclassMethods {
 
 	public String getcelldata(String Sheetname, int rownum, int cellnum) throws IOException {
 		String res = null;
-		file = new File(getProjectPath() + "\\ExcelSheets\\Details.xlsx");
+		file = new File(getProjectPath() + "\\ExcelSheets\\Book1.xlsx");
 		inpstream = new FileInputStream(file);
 		workbook = new XSSFWorkbook(inpstream);
 		Sheet sheet = workbook.getSheet(Sheetname);
@@ -446,7 +447,7 @@ public class BaseclassMethods {
 //54- to update cell
 	public void toupdatecell(String Sheetname, int rownum, int cellnum, String olddata, String newdata)
 			throws IOException {
-		file = new File(getProjectPath() + "\\ExcelSheets\\Details.xlsx");
+		file = new File(getProjectPath() + "\\ExcelSheets\\Book1.xlsx");
 		inpstream = new FileInputStream(file);
 		workbook = new XSSFWorkbook(inpstream);
 		Sheet sheet = workbook.getSheet(Sheetname);
@@ -462,17 +463,18 @@ public class BaseclassMethods {
 
 	}
 
+
 //55- to create new cell and update data
-	public void tocreatenewcellandupdatedata(String Sheetname, int rownum, int cellnum, String data)
+	public void tocreatenewcellupdatedata(String Sheetname, int rownum, int cellnum, String data)
 			throws IOException {
-		file = new File(getProjectPath() + "\\ExcelSheets\\Details.xlsx");
+		file = new File(getProjectPath() + "\\ExcelSheets\\Book1.xlsx");
 		inpstream = new FileInputStream(file);
 		workbook = new XSSFWorkbook(inpstream);
 		Sheet sheet = workbook.getSheet(Sheetname);
 		Row row = sheet.getRow(rownum);
 		Cell cell = row.createCell(cellnum);
 		cell.setCellValue(data);
-		inpstream = new FileInputStream(file);
+		outstream = new FileOutputStream(file);
 		workbook.write(outstream);
 
 	}
